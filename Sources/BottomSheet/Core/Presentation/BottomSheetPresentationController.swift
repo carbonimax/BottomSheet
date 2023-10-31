@@ -284,20 +284,17 @@ public final class BottomSheetPresentationController: UIPresentationController {
     }
 
     private func addShadow(containerView: UIView) {
+        guard configuration.shadowConfiguration.backgroundColor != .clear else { return }
         var shadingView = UIView()
         if let blur = configuration.shadowConfiguration.blur {
             shadingView = UIVisualEffectView(effect: UIBlurEffect(style: blur))
         }
-
         shadingView.backgroundColor = configuration.shadowConfiguration.backgroundColor
         containerView.addSubview(shadingView)
         shadingView.frame = containerView.bounds
-
         let tapGesture = UITapGestureRecognizer()
         shadingView.addGestureRecognizer(tapGesture)
-
         tapGesture.addTarget(self, action: #selector(handleShadingViewTapGesture))
-
         self.shadingView = shadingView
     }
 
